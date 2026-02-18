@@ -1,0 +1,31 @@
+Metadata-Version: 2.4
+Name: fde-job-atlas
+Version: 0.1.0
+Summary: Pipeline that mines Common Crawl for Forward Deployed Engineer job postings with semantic search
+License: MIT
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: httpx<1,>=0.27
+Requires-Dist: beautifulsoup4<5,>=4.12
+Requires-Dist: lxml<6,>=5.0
+Requires-Dist: warcio<2,>=1.7
+Requires-Dist: sentence-transformers<4,>=3.0
+Requires-Dist: faiss-cpu<2,>=1.8
+Requires-Dist: scikit-learn<2,>=1.4
+Requires-Dist: numpy<3,>=1.26
+Requires-Dist: pandas<3,>=2.1
+Requires-Dist: fastapi<1,>=0.110
+Requires-Dist: uvicorn<1,>=0.27
+Requires-Dist: pydantic<3,>=2.5
+Requires-Dist: click<9,>=8.1
+Requires-Dist: tqdm<5,>=4.66
+Requires-Dist: datasketch<2,>=1.6
+Requires-Dist: orjson<4,>=3.9
+Requires-Dist: tenacity<10,>=8.2
+Requires-Dist: boto3<2,>=1.34
+Provides-Extra: dev
+Requires-Dist: pytest<9,>=8.0; extra == "dev"
+Requires-Dist: pytest-asyncio<1,>=0.23; extra == "dev"
+Requires-Dist: pytest-cov<6,>=5.0; extra == "dev"
+Requires-Dist: ruff<1,>=0.3; extra == "dev"
+Requires-Dist: mypy<2,>=1.8; extra == "dev"
