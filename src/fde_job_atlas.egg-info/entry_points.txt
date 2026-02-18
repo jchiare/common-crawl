@@ -1,2 +1,0 @@
-[console_scripts]
-fde-atlas = fde_job_atlas.cli:main
