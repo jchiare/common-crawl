@@ -37,8 +37,7 @@ jobs:
             -project HomePractice.xcodeproj \
             -scheme HomePractice \
             -destination "$DESTINATION" \
-            -skipPackagePluginValidation \
-            CODE_SIGNING_ALLOWED=NO 2>&1 | tee build.log | grep -E "error:|\*\* " || true
+            -skipPackagePluginValidation 2>&1 | tee build.log | grep -E "error:|\*\* " || true
           grep -q "\*\* TEST BUILD SUCCEEDED \*\*" build.log
       - name: Run unit tests on the simulator
         timeout-minutes: 15
@@ -47,8 +46,7 @@ jobs:
           xcodebuild test-without-building \
             -project HomePractice.xcodeproj \
             -scheme HomePractice \
-            -destination "$DESTINATION" \
-            CODE_SIGNING_ALLOWED=NO 2>&1 | tee test.log | grep -E "error:|Test Case|Executed|\*\* " || true
+            -destination "$DESTINATION" 2>&1 | tee test.log | grep -E "error:|Test Case|Executed|\*\* " || true
           grep -q "\*\* TEST EXECUTE SUCCEEDED \*\*" test.log
       - name: Upload the full logs
         if: failure()
