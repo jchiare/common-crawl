@@ -29,8 +29,9 @@ before a parent sees it.
 1. Create a project at supabase.com. Choose the region with your privacy obligations in mind,
    since this stores children's health-related data.
 2. Run `supabase/migrations/20261113000000_init.sql` in the SQL editor (or `supabase db push`).
-3. Authentication > Email Templates > **Magic Link**: add the code to the email body so parents can
-   type it into the app, e.g. `Your sign-in code is {{ .Token }}`.
+3. Authentication > Email Templates: paste `supabase/templates/sign_in_code.html` into both
+   **Magic Link** and **Confirm signup** (a first-time sign-in uses the second one). This puts
+   the one-time code in the email, which is what parents type into the app.
 4. Authentication > URL Configuration: add the web app's address plus `/auth/callback` to the
    redirect URLs (for local work: `http://localhost:3000/auth/callback`).
 5. Copy the project URL and anon key from Project Settings > API.
@@ -59,6 +60,13 @@ open HomePractice.xcodeproj
 
 Put the Supabase URL and anon key in `ios/HomePractice/Config.swift`, set your own bundle
 identifier and team in the target's Signing settings, and run.
+
+### Running the backend locally instead
+
+With Docker and the Supabase CLI installed, `supabase start` from the repo root runs the whole
+backend on your machine with the schema and email template applied. It prints the local URL and
+anon key to use in `web/.env.local`; sign-in emails land in the local inbox at
+`http://127.0.0.1:54324`.
 
 ## Checks
 
