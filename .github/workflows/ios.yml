@@ -1,0 +1,39 @@
+name: iOS
+
+# macOS runners are billed at a higher rate, so this only runs when the app changes.
+on:
+  push:
+    paths: ["ios/**", ".github/workflows/ios.yml"]
+  pull_request:
+    paths: ["ios/**", ".github/workflows/ios.yml"]
+
+jobs:
+  build-and-test:
+    runs-on: macos-15
+    defaults:
+      run:
+        working-directory: ios
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate the Xcode project
+        run: |
+          brew install xcodegen
+          xcodegen generate
+      - name: Build and run unit tests on a simulator
+        run: |
+          set -o pipefail
+          device=$(xcrun simctl list devices available | grep -oE 'iPhone [0-9]+[^(]*' | head -1 | sed 's/ *$//')
+          echo "Using simulator: $device"
+          xcodebuild test \
+            -project HomePractice.xcodeproj \
+            -scheme HomePractice \
+            -destination "platform=iOS Simulator,name=$device" \
+            -skipPackagePluginValidation \
+            CODE_SIGNING_ALLOWED=NO | tee build.log | grep -E "error|warning: unre|Test Suite|Test Case.*failed|\*\* " || true
+          grep -q "\*\* TEST SUCCEEDED \*\*" build.log
+      - name: Upload the full build log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcodebuild-log
+          path: ios/build.log

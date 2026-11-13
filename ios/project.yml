@@ -1,0 +1,58 @@
+# Xcode project definition. Generate the project with:  xcodegen generate
+name: HomePractice
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+packages:
+  Supabase:
+    url: https://github.com/supabase/supabase-swift
+    from: "2.5.1"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  HomePractice:
+    type: application
+    platform: iOS
+    sources:
+      - HomePractice
+    dependencies:
+      - package: Supabase
+        product: Supabase
+    settings:
+      base:
+        # Change this to your own identifier before running on a device.
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.homepractice
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Home Practice
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+  HomePracticeTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - HomePracticeTests
+    dependencies:
+      - target: HomePractice
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  HomePractice:
+    build:
+      targets:
+        HomePractice: all
+        HomePracticeTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - HomePracticeTests

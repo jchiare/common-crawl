@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --color-ink: #1c2321;
+  --color-muted: #5f6b68;
+  --color-line: #dfe5e2;
+  --color-paper: #f6f8f7;
+  --color-brand: #0f766e;
+  --color-brand-dark: #0b5a54;
+  --color-brand-soft: #e3f2f0;
+  --color-easy: #2f9e6a;
+  --color-ok: #d39a1d;
+  --color-hard: #cf5b45;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl border border-line bg-white p-5;
+  }
+  .label {
+    @apply mb-1 block text-xs font-medium text-muted;
+  }
+  .input {
+    @apply w-full rounded-lg border border-line bg-white px-3 py-2 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brand/20;
+  }
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-line bg-white px-3 py-2 text-sm font-medium hover:bg-paper disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply border-brand bg-brand text-white hover:border-brand-dark hover:bg-brand-dark;
+  }
+  .btn-quiet {
+    @apply border-transparent bg-transparent px-2 py-1 text-xs text-muted hover:bg-paper hover:text-ink;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full bg-paper px-2 py-0.5 text-xs text-muted;
+  }
+  .chip-brand {
+    @apply bg-brand-soft text-brand-dark;
+  }
+  .h2 {
+    @apply text-sm font-semibold tracking-wide text-muted uppercase;
+  }
+}
