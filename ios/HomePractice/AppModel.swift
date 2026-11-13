@@ -143,13 +143,16 @@ final class AppModel {
             latestSummary = nil
             return
         }
-        let days = Week.days(from: weekStart)
+        let week = weekStart
+        let days = Week.days(from: week)
+        let firstDay = days.first ?? week
+        let lastDay = days.last ?? week
 
-        async let pendingLogs = api.logs(childID: childID, from: days.first ?? weekStart, through: days.last ?? weekStart)
+        async let pendingLogs = api.logs(childID: childID, from: firstDay, through: lastDay)
         async let pendingGoals = api.goals(childID: childID)
         async let pendingSummary = api.latestSummary(childID: childID)
 
-        let loadedPlan = try await api.plan(childID: childID, weekStart: weekStart)
+        let loadedPlan = try await api.plan(childID: childID, weekStart: week)
         var loadedTasks: [PracticeTask] = []
         if let loadedPlan {
             loadedTasks = try await api.tasks(planID: loadedPlan.id)
